@@ -19,7 +19,7 @@ private fun checkCustom(input: String) {
     val customEnd = input.indexOf("\\n")
     if (customStart == 0 && customEnd == 3){
         // Custom Calculator
-        // TODO: Custom Calculator
+        customSeparator(input)
     } else if (customStart != 0 && customEnd == 3) {
         // Custom Separator \\(X), \n(O)
         throw IllegalArgumentException("customStart: $customStart")
@@ -28,8 +28,24 @@ private fun checkCustom(input: String) {
         throw IllegalArgumentException("customEnd: $customEnd")
     } else {
         // Basic Calculator
-        // TODO: Basic Calculator
+        basicSeparator(input)
     }
+}
+
+private fun customSeparator(input: String) {
+    val sep = input.substring(2 until 3)
+    val inputProcessed = input.substring(5 until input.length)
+    checkStrException(inputProcessed, sep)
+}
+
+private fun basicSeparator(input: String) {
+    checkStrException(input, ",:")
+}
+
+private fun checkStrException(testStr: String, allowedChars: String) {
+    val regex = Regex("^[0-9${Regex.escape(allowedChars)}]*$")
+    if (!regex.matches(testStr)) return
+    else throw IllegalArgumentException("Characters not allowed")
 }
 
 private fun printResult(result: String) {
