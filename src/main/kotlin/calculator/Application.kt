@@ -1,11 +1,12 @@
 package calculator
 
 import camp.nextstep.edu.missionutils.Console
+import kotlin.collections.mapNotNull
+import kotlin.text.toIntOrNull
 
 fun main() {
     val input = getInput()
     checkCustom(input)
-    printResult(input)
 }
 
 private fun getInput(): String {
@@ -36,10 +37,15 @@ private fun customSeparator(input: String) {
     val sep = input.substring(2 until 3)
     val inputProcessed = input.substring(5 until input.length)
     checkStrException(inputProcessed, sep)
+    val split = input.split(sep)
+    val numArr = split.mapNotNull { it.toIntOrNull() }
 }
 
 private fun basicSeparator(input: String) {
     checkStrException(input, ",:")
+    val split1 = input.split(":")
+    val split2 = split1.joinToString().replace(" ", "").split(',')
+    val numArr = split2.mapNotNull { it.toIntOrNull() }
 }
 
 private fun checkStrException(testStr: String, allowedChars: String) {
@@ -48,6 +54,6 @@ private fun checkStrException(testStr: String, allowedChars: String) {
     else throw IllegalArgumentException("Characters not allowed")
 }
 
-private fun printResult(result: String) {
+private fun printResult(result: Int) {
     println(result)
 }
