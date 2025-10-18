@@ -22,6 +22,22 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun `빈 응답`() {
+        assertSimpleTest {
+            run("\n")
+            assertThat(output()).contains("결과 : 0")
+        }
+    }
+
+    @Test
+    fun `기본 구분자 사용`() {
+        assertSimpleTest {
+            run("1,2:3")
+            assertThat(output()).contains("결과 : 6")
+        }
+    }
+
     override fun runMain() {
         main()
     }
