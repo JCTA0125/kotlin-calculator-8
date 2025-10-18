@@ -39,7 +39,7 @@ private fun customSeparator(input: String) {
     checkStrException(inputProcessed, sep)
     val split = inputProcessed.split(sep)
     val numArr = split.mapNotNull { it.toIntOrNull() }
-    // sumNum(numArr)
+    sumNum(numArr)
 }
 
 private fun basicSeparator(input: String) {
@@ -47,13 +47,18 @@ private fun basicSeparator(input: String) {
     val split1 = input.split(":")
     val split2 = split1.joinToString().replace(" ", "").split(',')
     val numArr = split2.mapNotNull { it.toIntOrNull() }
-    // sumNum(numArr)
+    sumNum(numArr)
 }
 
 private fun checkStrException(testStr: String, allowedChars: String) {
     val regex = Regex("^[0-9${Regex.escape(allowedChars)}]*$")
     if (regex.matches(testStr)) return
     else throw IllegalArgumentException("Characters not allowed")
+}
+
+private fun sumNum(numArr: List<Int>) {
+    val sum = numArr.sum()
+    printResult(sum)
 }
 
 private fun printResult(result: Int) {
